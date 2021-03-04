@@ -18,6 +18,9 @@ module Krails
     end
     map %w[--version -v] => :version
 
+    require_relative 'commands/secret'
+    register Krails::Commands::Secret, 'secret', 'secret [SUBCOMMAND]', 'Set application secret in a cluster'
+
     require_relative "commands/secret"
     register Krails::Commands::Secret, "secret", "secret [SUBCOMMAND]", "Get all the application secrets from a cluster"
 

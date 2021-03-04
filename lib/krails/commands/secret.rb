@@ -7,6 +7,18 @@ module Krails
     class Secret < Thor
       namespace :secret
 
+      desc 'set NAME VALUE', 'Set application secret in a cluster'
+      method_option :help, aliases: '-h', type: :boolean,
+                           desc: 'Display usage information'
+      def set(name, value)
+        if options[:help]
+          invoke :help, ['set']
+        else
+          require_relative 'secret/set'
+          Krails::Commands::Secret::Set.new(name, value, options).execute
+        end
+      end
+
       desc 'all', 'Get all the application secrets from a cluster'
       method_option :help, aliases: '-h', type: :boolean,
                            desc: 'Display usage information'

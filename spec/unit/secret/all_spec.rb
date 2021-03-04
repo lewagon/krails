@@ -1,4 +1,4 @@
-require 'krails/commands/secret/all'
+require "krails/commands/secret/all"
 
 RSpec.describe Krails::Commands::Secret::All do
   it "executes `secret all` command successfully" do
