@@ -4,6 +4,7 @@ class KrailsConfig < Anyway::Config
   DOCR_URL = "registry.digitalocean.com"
 
   attr_config(
+    :debug,
     :ruby_version,
     :pg_major_version,
     :node_major_version,

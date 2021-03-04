@@ -28,7 +28,10 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   # Uncomment to register a new dependency of your gem
+  # TODO: Lock them to last good versions
   spec.add_dependency "tty-which"
+  spec.add_dependency "tty-command"
+  spec.add_dependency "tty-logger"
   spec.add_dependency "anyway_config", ">= 2.0.0"
 
   # For more information and examples about making a new gem, checkout our

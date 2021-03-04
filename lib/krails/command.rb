@@ -8,6 +8,15 @@ module Krails
 
     def_delegators :command, :run
 
+    def logger
+      require "tty-logger"
+      @logger ||= TTY::Logger.new
+    end
+
+    def config
+      Krails.config
+    end
+
     # Execute this command
     #
     # @api public
@@ -25,7 +34,7 @@ module Krails
     # @api public
     def command(**options)
       require "tty-command"
-      TTY::Command.new(**options)
+      TTY::Command.new(printer: Krails.config.debug ? :pretty : :quiet, **options)
     end
 
     # The cursor movement
@@ -85,7 +94,7 @@ module Krails
     # @api public
     def prompt(**options)
       require "tty-prompt"
-      TTY::Prompt.new(options)
+      TTY::Prompt.new(**options)
     end
 
     # Get terminal screen properties
