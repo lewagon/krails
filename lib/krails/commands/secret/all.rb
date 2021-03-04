@@ -10,6 +10,8 @@ module Krails
           @options = options
         end
 
+        # TODO: Handle errors from k8s API server
+
         def execute(input: $stdin, output: $stdout)
           output.puts "OK"
           # TODO: get secret object name from config/application name

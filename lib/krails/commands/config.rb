@@ -15,6 +15,8 @@ module Krails
         if exec_exist?("helm")
           p which("helm")
         end
+
+        p Krails.config
       end
     end
   end

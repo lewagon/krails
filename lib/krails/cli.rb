@@ -1,8 +1,19 @@
 # frozen_string_literal: true
 
 require "thor"
-
 module Krails
+  class << self
+    def config
+      @config ||= begin
+        KrailsConfig.new
+      end
+    end
+
+    def configure
+      yield(config) if block_given?
+    end
+  end
+
   # Handle the application command line parsing
   # and the dispatch to various command objects
   #
@@ -18,8 +29,8 @@ module Krails
     end
     map %w[--version -v] => :version
 
-    require_relative 'commands/secret'
-    register Krails::Commands::Secret, 'secret', 'secret [SUBCOMMAND]', 'Set application secret in a cluster'
+    require_relative "commands/secret"
+    register Krails::Commands::Secret, "secret", "secret [SUBCOMMAND]", "Set application secret in a cluster"
 
     require_relative "commands/secret"
     register Krails::Commands::Secret, "secret", "secret [SUBCOMMAND]", "Get all the application secrets from a cluster"

@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+require_relative "../lib/krails/krails_config"
+
 lib_path = File.expand_path("../lib", __dir__)
 $:.unshift(lib_path) unless $:.include?(lib_path)
 require "krails/cli"
