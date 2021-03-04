@@ -34,7 +34,7 @@ module Krails
     # @api public
     def command(**options)
       require "tty-command"
-      TTY::Command.new(printer: Krails.config.debug ? :pretty : :quiet, **options)
+      TTY::Command.new(printer: Krails.config.debug ? :pretty : :null, **options)
     end
 
     # The cursor movement
