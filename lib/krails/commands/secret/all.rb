@@ -6,29 +6,31 @@ module Krails
   module Commands
     class Secret
       class All < Krails::Command
-        EXEC = "kubectl"
+        EXEC = "fddf"
 
         def initialize(options)
           @options = options
         end
 
         def execute(input: $stdin, output: $stdout)
-          # TODO: get secret object name from config/application name
           unless exec_exist?(EXEC) && exec_exist?("base64")
-            return # TODO: warn about missing executables
+            prompt.error("Missing executable")
+            raise Thor::Error, "command failed"
           end
           @app_name = config.app_name || command.run("pwd").out&.split("/")&.last
-          command
-            .run(
-              <<~TXT
-                #{EXEC} get secret #{@app_name}-secrets \
-                -o go-template='{{ range $k, $v := .data }}{{ $k }}={{ $v | base64decode}}\n{{end}}'
-              TXT
-            ) do |_, err|
-              output << "[#{EXEC}] #{err}" if err
-            end
-        rescue TTY::Command::ExitError
-          warn_app_name
+          begin
+            command
+              .run(
+                <<~TXT
+                  #{EXEC} get secret #{@app_name}-secrets \
+                  -o go-template='{{ range $k, $v := .data }}{{ $k }}={{ $v | base64decode}}\n{{end}}'
+                TXT
+              ) do |_, err|
+                output << "[#{EXEC}] #{err}" if err
+              end
+          rescue TTY::Command::ExitError
+            warn_app_name
+          end
         end
 
         private
