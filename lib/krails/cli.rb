@@ -30,13 +30,7 @@ module Krails
     map %w[--version -v] => :version
 
     require_relative "commands/secret"
-    register Krails::Commands::Secret, "secret", "secret [SUBCOMMAND]", "Set application secret in a cluster"
-
-    require_relative "commands/secret"
-    register Krails::Commands::Secret, "secret", "secret [SUBCOMMAND]", "Get all the application secrets from a cluster"
-
-    require_relative "commands/secret"
-    register Krails::Commands::Secret, "secret", "secret [SUBCOMMAND]", "get decoded application secrets from a cluster"
+    register Krails::Commands::Secret, "secret", "secret [all|get|set]", "Operate on application secrets in a cluster"
 
     desc "config", "Command description..."
     method_option :help, aliases: "-h", type: :boolean,

@@ -1,4 +1,4 @@
-require 'krails/commands/secret/set'
+require "krails/commands/secret/set"
 
 RSpec.describe Krails::Commands::Secret::Set do
   xit "executes `secret set` command successfully" do

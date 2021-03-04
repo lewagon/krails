@@ -1,4 +1,4 @@
-require 'krails/commands/config'
+require "krails/commands/config"
 
 RSpec.describe Krails::Commands::Config do
   it "executes `config` command successfully" do
