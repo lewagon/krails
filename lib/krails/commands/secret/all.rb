@@ -6,7 +6,7 @@ module Krails
   module Commands
     class Secret
       class All < Krails::Command
-        EXEC = "fddf"
+        EXEC = "kubectl"
 
         def initialize(options)
           @options = options
