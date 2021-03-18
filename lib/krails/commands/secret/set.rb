@@ -13,11 +13,10 @@ module Krails
           @name = name
           @value = value
           @options = options
+          @app_name = config.app_name || command.run("pwd").out&.split("/")&.last
         end
 
         def execute(input: $stdin, output: $stdout)
-          # Command logic goes here ...
-          # TODO: get secret object name from config/application name
           output.puts "OK"
           return unless exec_exist?(EXEC)
 
@@ -27,8 +26,8 @@ module Krails
             }
           }
 
-          patch = "#{EXEC} patch secret www-secrets -p"
-          command(printer: :quiet)
+          patch = "#{EXEC} patch secret #{@app_name}-secrets -p"
+          command
             .run(
               patch,
               JSON.dump(payload)

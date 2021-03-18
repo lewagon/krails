@@ -9,6 +9,7 @@ module Krails
         def initialize(name, options)
           @options = options
           @name = name
+          @app_name = config.app_name || command.run("pwd").out&.split("/")&.last
         end
 
         def execute(input: $stdin, output: $stdout)
@@ -17,8 +18,8 @@ module Krails
           output.puts "OK"
           exec = "kubectl"
           if exec_exist?(exec) && exec_exist?("base64")
-            command(printer: :quiet)
-              .run("#{exec} get secret www-secrets -o jsonpath='{.data.#{@name}}' | base64 --decode")
+            command
+              .run("#{exec} get secret #{@app_name}-secrets -o jsonpath='{.data.#{@name}}' | base64 --decode")
           end
         end
       end

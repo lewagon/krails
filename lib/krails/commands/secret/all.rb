@@ -10,6 +10,7 @@ module Krails
 
         def initialize(options)
           @options = options
+          @app_name = config.app_name || command.run("pwd").out&.split("/")&.last
         end
 
         def execute(input: $stdin, output: $stdout)
@@ -17,7 +18,6 @@ module Krails
             prompt.error("Missing executable")
             raise Thor::Error, "command failed"
           end
-          @app_name = config.app_name || command.run("pwd").out&.split("/")&.last
           begin
             command
               .run(

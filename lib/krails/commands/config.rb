@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "pp"
 require_relative "../command"
 
 module Krails
@@ -10,11 +11,7 @@ module Krails
       end
 
       def execute(input: $stdin, output: $stdout)
-        # Command logic goes here ...
-        output.puts "OK"
-        if exec_exist?("helm")
-          p which("helm")
-        end
+        prompt.say(Krails.config.pretty_inspect)
       end
     end
   end
